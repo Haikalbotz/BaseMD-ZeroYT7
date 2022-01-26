@@ -4,17 +4,18 @@ const chalk = require('chalk')
 //━━━━━━━━━━━━━━━[ WEBSITE API ]━━━━━━━━━━━━━━━━━//
 
 global.APIs = {
-zeroyt7: 'https://zeroyt7-api.xyz',
+zenz: 'https://zeroyt7-api.xyz',
 }
 
 //━━━━━━━━━━━━━━━[ APIKEY WEBSITE API ]━━━━━━━━━━━━━━━━━//
 
 global.APIKeys = {
-'https://zeroyt7-api.xyz': 'YOUR KEY',
+'https://zeroyt7-api.xyz': 'YOUR APIKEY',
 }
 
 //━━━━━━━━━━━━━━━[ OTHER ]━━━━━━━━━━━━━━━━━//
 
+global.ownername = 'Zero YT7'
 global.owner = ['6285157740529']
 global.packname = 'Zero YT7'
 global.author = 'Zero YT7'
