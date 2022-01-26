@@ -1,3 +1,27 @@
+/**
+* Please Jangan Di Hapus Info Dan Tq To Nya
+**/
+
+/**
+* Create By Zero YT7
+* Contact Me on wa.me/6285157740529
+* Follow Me On All Sosial Media
+* Instagram : @Zero_YT7
+* Tiktok : @_zeroyt7
+* Github : Zero-YT7
+* Youtube : Zero YT7
+**/
+
+/**
+* Thanks To
+* Allah S.W.T
+* Ortu
+* Zero YT7
+* Dhika Ardiant
+* All Creator Bot
+* All Subscriber Ku
+**/
+
 require('../command/config')
 var { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
 var fs = require('fs')
