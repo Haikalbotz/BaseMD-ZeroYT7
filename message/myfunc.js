@@ -1,4 +1,4 @@
-const { proto } = require('@adiwajshing/baileys')
+const { default: makeWASocket, BufferJSON, MessageType, MessageOptions, Mimetype, generateWAMessageFromContent, downloadContentFromMessage, proto } = require('@adiwajshing/baileys-md')
 const chalk = require('chalk')
 const fs = require('fs')
 const Crypto = require('crypto')
@@ -9,6 +9,19 @@ const util = require('util')
 const jimp = require('jimp')
 const { defaultMaxListeners } = require('stream')
 
+
+const downloadMediaMessage = async (message) => {
+let mime = (message.msg || message).mimetype || ''
+let messageType = mime.split('/')[0].replace('application', 'document') ? mime.split('/')[0].replace('application', 'document') : mime.split('/')[0]
+let extension = mime.split('/')[1]
+const stream = await downloadContentFromMessage(message, messageType)
+let buffer = Buffer.from([])
+for await(const chunk of stream) {
+buffer = Buffer.concat([buffer, chunk])
+}
+        
+return buffer
+}
 
 const unixTimestampSeconds = (date = new Date()) => Math.floor(date.getTime() / 1000)
 
@@ -186,9 +199,9 @@ return admins
  * Serialize Message
  * @param {WAConnection} conn 
  * @param {Object} m 
- * @param {store} store 
+ * @param {Boolean} hasParent 
  */
-exports.smsg = (conn, m, store) => {
+exports.smsg = (conn, m, hasParent) => {
 if (!m) return m
 let M = proto.WebMessageInfo
 if (m.key) {
@@ -220,7 +233,6 @@ m.quoted = m.quoted[type]
 if (typeof m.quoted === 'string') m.quoted = {
 text: m.quoted
 }
-m.quoted.mtype = type
 m.quoted.id = m.msg.contextInfo.stanzaId
 m.quoted.chat = m.msg.contextInfo.remoteJid || m.chat
 m.quoted.isBaileys = m.quoted.id ? m.quoted.id.startsWith('BAE5') && m.quoted.id.length === 16 : false
@@ -228,11 +240,6 @@ m.quoted.sender = m.msg.contextInfo.participant.split(":")[0] || m.msg.contextIn
 m.quoted.fromMe = m.quoted.sender === (conn.user && conn.user.id)
 m.quoted.text = m.quoted.text || m.quoted.caption || ''
 m.quoted.mentionedJid = m.msg.contextInfo ? m.msg.contextInfo.mentionedJid : []
-m.getQuotedObj = m.getQuotedMessage = async () => {
-if (!m.quoted.id) return false
-let q = await store.loadMessage(m.chat, m.quoted.id, conn)
-return exports.smsg(conn, q, store)
-}
 let vM = m.quoted.fakeObj = M.fromObject({
 key: {
 remoteJid: m.quoted.chat,
@@ -262,10 +269,10 @@ m.quoted.copyNForward = (jid, forceForward = false, options = {}) => conn.copyNF
 *
 * @returns
 */
-m.quoted.download = () => conn.downloadMediaMessage(m.quoted)
+m.quoted.download = () => downloadMediaMessage(m.quoted)
 }
 }
-if (m.msg.url) m.download = () => conn.downloadMediaMessage(m.msg)
+if (m.msg.url) m.download = () => downloadMediaMessage(m.msg)
 m.text = (m.mtype == 'listResponseMessage' ? m.msg.singleSelectReply.selectedRowId : '') || m.msg.text || m.msg.caption || m.msg || ''
 /**
 * Reply to this message

@@ -107,7 +107,7 @@ const exif = Buffer.concat([exifAttr, jsonBuff])
 exif.writeUIntLE(jsonBuff.length, 14, 4)
 await img.load(tmpFileIn)
 fs.unlinkSync(tmpFileIn)
-img.exif = exif
+img.exif = exif=
 await img.save(tmpFileOut)
 return tmpFileOut
 }
