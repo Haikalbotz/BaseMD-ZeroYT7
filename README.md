@@ -40,12 +40,6 @@
 <a href="https://tiktok.com/@_zeroyt7"><img src="https://img.shields.io/badge/Tiktok Zero YT7-black?style=for-the-badge&logo=tiktok&logoColor=ff000000&link=https://tiktok.com/@zeroyt7" /></a>
 </p>
 
-## ```SETTING```
-
-- Owner number [Here](https://github.com/Zero-YT7/Base-ZeroYT7/blob/master/json/setting.json#L4)
-- Owner name [Here](https://github.com/Zero-YT7/Base-ZeroYT7/blob/master/json/setting.json#L13)
-- Botname [Here](https://github.com/Zero-YT7/Base-ZeroYT7/blob/master/json/setting.json#L14)
-
 ## ```DONASI```
 
 - [`SAWERIA`](https://saweria.co/ZeroYT7)
